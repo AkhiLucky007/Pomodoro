@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+/* No custom scroll/swipe container should ever bounce past its own content
+   and reveal blank canvas behind it - html/body have no background of their
+   own, so any rubber-band overscroll shows flat white. overscroll-behavior
+   stops the bounce at the edge instead of letting it propagate. */
+html, body {
+  height: 100%;
+  overscroll-behavior: none;
+  background: #000;
+}
+#root {
+  height: 100%;
+}
+
+@theme {
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-grotesk: "Space Grotesk", sans-serif;
+
+  --color-sophisticated-bg: #0A0A0A;
+  --color-sophisticated-border: #1A1A1A;
+  --color-sophisticated-accent: #3E63DD;
+  --color-sophisticated-text: #EDEDED;
+  --color-sophisticated-muted: #555555;
+  --color-sophisticated-gray: #BBBBBB;
+
+  --color-indigo-400: #3E63DD;
+  --color-indigo-500: #3E63DD;
+  --color-indigo-600: #2F54D0;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.2);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(156, 163, 175, 0.4);
+}
+
+/* Custom styles for animations and clean state transition */
+.transition-all-custom {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* For any internally-scrollable list (tasks, timeline, command palette) -
+   lets the list itself scroll normally but stops the bounce/rubber-band
+   at its own top/bottom instead of letting it fall through to the page. */
+.scroll-contain {
+  overscroll-behavior: contain;
+}
+
+/* --- Liquid Glass panels ---
+   The base blur/tint/shadow comes from getLiquidGlassStyle() (inline style,
+   since it depends on the user's transparency slider). This class adds the
+   part that can't be expressed as a flat inline style: a soft diagonal sheen
+   and a faint edge highlight, layered on top via pseudo-elements so there's
+   no banding and nothing to recompute on every render. */
+.liquid-glass-panel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition: backdrop-filter 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.liquid-glass-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(255, 255, 255, 0.05) 22%,
+    rgba(255, 255, 255, 0) 45%,
+    rgba(255, 255, 255, 0) 70%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  mix-blend-mode: overlay;
+}
+
+.liquid-glass-panel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  box-shadow: inset 0 0.5px 0 rgba(255, 255, 255, 0.5);
+}
+
+.liquid-glass-panel > * {
+  position: relative;
+  z-index: 1;
+}
+
+.liquid-glass-panel--light::before {
+  mix-blend-mode: soft-light;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.55) 0%,
+    rgba(255, 255, 255, 0.15) 25%,
+    rgba(255, 255, 255, 0) 48%,
+    rgba(255, 255, 255, 0) 72%,
+    rgba(255, 255, 255, 0.2) 100%
+  );
+}
+

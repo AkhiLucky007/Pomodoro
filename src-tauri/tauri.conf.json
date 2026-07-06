@@ -1,0 +1,39 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "FlowState",
+  "version": "0.1.0",
+  "identifier": "com.flowstate.app",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build",
+    "devUrl": "http://localhost:3000",
+    "frontendDist": "../dist"
+  },
+  "plugins": {
+    "watcher": {
+      "ignore": [
+        "**/target/**",
+        "**/src-tauri/target/**"
+      ]
+    }
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "FlowState",
+        "width": 1024,
+        "height": 768,
+        "resizable": true,
+        "fullscreen": false
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": ["icons/gifu.ico"]
+  }
+}

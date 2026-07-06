@@ -1,0 +1,6 @@
+{
+  "name": "Focus Desk",
+  "description": "A highly polished, distraction-free minimalist Pomodoro timer designed for effortless flow, with automatic recommendations, keyboard navigation, and deep focus mode.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
